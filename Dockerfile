@@ -3,7 +3,7 @@ MAINTAINER KBase Developer
 
 
 RUN apt-get update
-RUN apt-get -y install g++ cmake swig vim
+#RUN apt-get -y install g++ cmake swig vim
 
 # stupid fix to remove conflict of numpy
 RUN rm -rf /miniconda/lib/python3.6/site-packages/numpy*

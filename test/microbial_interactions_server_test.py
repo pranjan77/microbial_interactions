@@ -65,6 +65,6 @@ class microbial_interactionsTest(unittest.TestCase):
         # self.assertEqual(ret[...], ...) or other unittest methods
         params = {
             'workspace_name':'pranjan77:narrative_1650064809467',
-            "community_models":[ "114731/94/1", "114731/92/1" ]
+            "community_models":[ "114731/50/1"]
         }
         ret = self.serviceImpl.run_microbial_interactions(self.ctx, params)

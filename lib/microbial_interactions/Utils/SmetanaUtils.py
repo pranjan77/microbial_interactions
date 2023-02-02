@@ -86,10 +86,15 @@ class SmetanaUtils:
             model1, model2 = pair.split("--")
         return [str(model1), str(model2)]
 
-    def generate_html(self, json_object):
+    def generate_html(self, json_object, errors):
         # get the table HTML from the dataframe
         df = pd.json_normalize(json_object)
         table_html = df.to_html(table_id="table", classes="stripe" )
+
+        error_string = "<p>"
+        for j in errors:
+            error_string += j + "</br>"
+        error_string += "</p>"
         # construct the complete HTML with jQuery Data tables
         # You can disable paging or enable y scrolling on lines 20 and 21 respectively
         html = f"""
@@ -99,6 +104,7 @@ class SmetanaUtils:
         </header>
         <body>
         {table_html}
+        {error_string}
         <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"><
 /script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -168,7 +174,10 @@ class SmetanaUtils:
 
             return (rs)
         except Exception as e:
+            community_model = self.get_object_name (community_model_ref)
             print(f"\n\nERROR:{e}")
+            error = "Error calculating scores for "  + community_model + " (model1: " + self.get_object_name(model2_ref) + " / " + "model2:" + self.get_object_name(model2_ref) +  ")" + ":  " + str(e)
+            return (error)
    
     def run_smetana (self, community_model_ref):
         result= self.test_pair(community_model_ref)
@@ -217,11 +226,15 @@ class SmetanaUtils:
 
     def run_smetana_batch (self, community_models, json_output_path, html_output_path):
         smetana_batch_result = list()
+        errors = list()
         for j in community_models:
            rs = self.run_smetana(j)
-           smetana_batch_result.append(rs)
+           if "Error" in rs:
+             errors.append(rs)
+           else:
+               smetana_batch_result.append(rs)
         self.write_to_file(smetana_batch_result, json_output_path) 
-        html = self.generate_html(smetana_batch_result)
+        html = self.generate_html(smetana_batch_result, errors)
         with open(html_output_path,  "w") as outfile:
            outfile.write(html)
     

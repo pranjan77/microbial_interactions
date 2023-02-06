@@ -74,10 +74,12 @@ class SmetanaUtils:
 
 
     def get_biomass(self, models):
-       biomass_yields=dict()
-       for model in models:
-           biomass_yields[str(model)] = model.slim_optimize()
-       return (biomass_yields)
+        biomass_yields=dict()
+        for model in models:
+            for ex in model.exchanges:
+                ex.bounds = (-100,100)
+            biomass_yields[str(model)] = model.slim_optimize()
+        return (biomass_yields)
 
 
     def get_models(self, smetana_result):

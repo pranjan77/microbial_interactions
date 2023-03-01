@@ -78,6 +78,7 @@ class SmetanaUtils:
         for model in models:
             for ex in model.exchanges:
                 ex.bounds = (-100,100)
+            model.objective = 'bio1'
             biomass_yields[str(model)] = model.slim_optimize()
         return (biomass_yields)
 

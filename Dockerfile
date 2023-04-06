@@ -10,9 +10,10 @@ RUN apt-get update
 RUN rm -rf /miniconda/lib/python3.6/site-packages/numpy*
 
 RUN pip install --upgrade pip
+RUN pip install h5py
 
-RUN pip install git+https://github.com/Fxe/cobrakbase.git@76c53a3448e8f86460af285ec87eb98372b8ae2b
-RUN pip install git+https://github.com/freiburgermsu/ModelSEEDpy.git@276a92a63d99eb06dcea35cd2211ed1177ba302a
+RUN pip install git+https://github.com/Fxe/cobrakbase.git@37029339394e1536217eb88b9f6691fc4dee0e92
+RUN pip install git+https://github.com/freiburgermsu/ModelSEEDpy.git@bdec0943892cc4ace9b97ea8023d437bb85de69c
 
 
 

@@ -11,7 +11,7 @@
     },
     "parameters": [ 
         {
-            "id": "community_models",
+            "id": "input_models",
             "optional": false,
             "advanced": false,
             "allow_multiple": true,
@@ -19,7 +19,19 @@
             "field_type": "text",
             "text_options": {
                 "valid_ws_types": ["KBaseFBA.FBAModel" ]
+             }
+        },
+        {
+            "id": "media",
+            "optional": true,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "" ],
+            "field_type": "text",
+            "text_options": {
+                "valid_ws_types": ["KBaseBiochem.Media" ]
             }
+
         }
     ],
     "behavior": {
@@ -35,9 +47,14 @@
                     "narrative_system_variable": "workspace_id",
                     "target_property": "workspace_id"
                 },{
-                    "input_parameter": "community_models",
-                    "target_property": "community_models"
+                    "input_parameter": "input_models",
+                    "target_property": "input_models"
+                },{
+                    "input_parameter": "media",
+                    "target_property": "media"
                 }
+
+                
             ],
             "output_mapping": [
                 {

@@ -5,6 +5,9 @@ import os
 import uuid
 from microbial_interactions.Utils.SmetanaUtils import SmetanaUtils
 from installed_clients.KBaseReportClient import KBaseReport
+from modelseedpy import MSSmetana, smetana_report
+import cobrakbase
+
 #END_HEADER
 
 
@@ -36,8 +39,10 @@ class microbial_interactions:
         #BEGIN_CONSTRUCTOR
         self.callback_url = os.environ['SDK_CALLBACK_URL']
         self.shared_folder = config['scratch']
+        self.ws_url = config["workspace-url"]
         logging.basicConfig(format='%(created)s %(levelname)s: %(message)s',
                             level=logging.INFO)
+        self.config = config
     def _mkdir_p(self, path):
         """
         _mkdir_p: make directory for given path
@@ -67,19 +72,30 @@ class microbial_interactions:
         # return variables are: output
         #BEGIN run_microbial_interactions
 
+        media_obj = params['media']
+        input_kbase_models = params['input_models']
+        token = ctx['token']
+        kbase_api = cobrakbase.KBaseAPI(token)
+
+
+
+
         result_dir = os.path.join(self.shared_folder,  str(uuid.uuid4()))
         print (result_dir)
         self._mkdir_p(result_dir)
-        smetana_json_path = os.path.join(result_dir, "smetana_output.json")
         index_html_path = os.path.join(result_dir, "index.html")
 
-        config = dict()
-        config['workspace-url']="https://kbase.us/services/ws"
-#        token="CP27V4DOUKJMJFDOOATYYMPWNISD266S"
+        models = list()
+        media = kbase_api.get_from_ws(media_obj)
+        for m in input_kbase_models:
+            models.append(kbase_api.get_from_ws(m))
+        #df, mets = MSSmetana.kbase_output(models, mem_media=models_media, pairs=model_pairs, pair_limit=1000, environment=r2a_media)
+        #df, mets = MSSmetana.kbase_output(models, environment=r2a_media)
+        df, mets = MSSmetana.kbase_output(models, environment=media)
+        reportHTML = smetana_report(df, mets, index_html_path)
 
-        config['token'] = ctx['token']
-        SMUtils = SmetanaUtils(config, params)
-        j1 = SMUtils.run_smetana_batch(params['community_models'], smetana_json_path, index_html_path)
+
+        SMUtils = SmetanaUtils(self.config, params)
         output = SMUtils.create_html_report(result_dir, params['workspace_name'])
 
         print (output)

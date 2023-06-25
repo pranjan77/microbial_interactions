@@ -5,7 +5,7 @@ import os
 import uuid
 from microbial_interactions.Utils.SmetanaUtils import SmetanaUtils
 from installed_clients.KBaseReportClient import KBaseReport
-from modelseedpy import MSSmetana, smetana_report
+from modelseedpy import MSCommScores, commscores_report
 import cobrakbase
 
 #END_HEADER
@@ -72,33 +72,28 @@ class microbial_interactions:
         # return variables are: output
         #BEGIN run_microbial_interactions
 
-        media_obj = params['media']
+        media_objs = params['media']
         input_kbase_models = params['input_models']
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
 
-
-
-
         result_dir = os.path.join(self.shared_folder,  str(uuid.uuid4()))
-        print (result_dir)
+        print(result_dir)
         self._mkdir_p(result_dir)
         index_html_path = os.path.join(result_dir, "index.html")
 
-        models = list()
-        media = kbase_api.get_from_ws(media_obj)
-        for m in input_kbase_models:
-            models.append(kbase_api.get_from_ws(m))
+        models = [kbase_api.get_from_ws(model) for model in input_kbase_models]
+        media = [kbase_api.get_from_ws(medium) for medium in media_objs]
         #df, mets = MSSmetana.kbase_output(models, mem_media=models_media, pairs=model_pairs, pair_limit=1000, environment=r2a_media)
         #df, mets = MSSmetana.kbase_output(models, environment=r2a_media)
-        df, mets = MSSmetana.kbase_output(models, environment=media)
-        reportHTML = smetana_report(df, mets, index_html_path)
+        df, mets = MSCommScores.kbase_output(models, kbase_obj=kbase_api, environments=media)
+        reportHTML = commscores_report(df, mets, index_html_path)
 
 
         SMUtils = SmetanaUtils(self.config, params)
         output = SMUtils.create_html_report(result_dir, params['workspace_name'])
 
-        print (output)
+        print(output)
         #END run_microbial_interactions
 
         # At some point might do deeper type checking...

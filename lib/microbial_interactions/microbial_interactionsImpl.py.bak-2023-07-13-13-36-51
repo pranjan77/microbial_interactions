@@ -27,8 +27,8 @@ class microbial_interactions:
     # the latter method is running.
     ######################################### noqa
     VERSION = "0.0.1"
-    GIT_URL = "git@github.com:pranjan77/microbial_interactions.git"
-    GIT_COMMIT_HASH = "94c873b9d99f158c8692a3737cca7a6567eeabd6"
+    GIT_URL = ""
+    GIT_COMMIT_HASH = ""
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER

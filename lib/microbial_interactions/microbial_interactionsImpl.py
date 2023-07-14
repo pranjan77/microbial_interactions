@@ -73,7 +73,7 @@ class microbial_interactions:
         #BEGIN run_microbial_interactions
 
         media_objs = params['media']
-        input_kbase_models = params['input_models']
+        input_kbase_models = params['member_models']
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
 

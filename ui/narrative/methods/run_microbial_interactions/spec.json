@@ -11,7 +11,7 @@
     },
     "parameters": [ 
         {
-            "id": "input_models",
+            "id": "member_models",
             "optional": false,
             "advanced": false,
             "allow_multiple": true,
@@ -25,13 +25,12 @@
             "id": "media",
             "optional": true,
             "advanced": false,
-            "allow_multiple": false,
+            "allow_multiple": true,
             "default_values": [ "" ],
             "field_type": "text",
             "text_options": {
                 "valid_ws_types": ["KBaseBiochem.Media" ]
             }
-
         }
     ],
     "behavior": {
@@ -47,8 +46,8 @@
                     "narrative_system_variable": "workspace_id",
                     "target_property": "workspace_id"
                 },{
-                    "input_parameter": "input_models",
-                    "target_property": "input_models"
+                    "input_parameter": "member_models",
+                    "target_property": "member_models"
                 },{
                     "input_parameter": "media",
                     "target_property": "media"

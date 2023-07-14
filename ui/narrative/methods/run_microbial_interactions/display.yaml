@@ -57,7 +57,7 @@ description : |
     
         <h4>Functional Complementarity (FC)</h4>    
         <p>
-            The FC score is calculated as the Jiccard Index of ontologies $O$ from either RAST or another annotation software
+            The FC score is calculated as the Jiccard Index of ontologies <i>O</i> from either RAST or another annotation software
                 <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/FC.png">
             This score captures the potential for niche overlap and therefore negative interactions. The broad assessment of the entire genome further captures secondary metabolic interactions as well as the primary metabolism that is embodied in genome-scale metabolic models. 
         </p>
@@ -71,7 +71,7 @@ description : |
             We additionally developed a few original scores. The first of these is the <i><b>G</b>rowth <b>R</b>ate <b>D</b>ifference</i> (GRD) score, which quantifies the difference in monocultural 
             biomass growth rate between the two groupings in the same media normalized by the growth rate of the slowest growing grouping. This score evaluates prospective dominance of one grouping relative 
             to the other, which presumably will influence how synergistic or antagonistic that grouping interactions will be. This score is algorithmically represented as the difference in biomass flux 
-            $G$ between groupings 1 $g1$ and 2 $g2$:
+            <i>G</i> between groupings 1 <i>G</i> and 2 <i>G</i>:
             <div class="latex">\[ GRD = \frac{abs(G_{g1}-G_{g2})}{min(G_{g1}, G_{g2})} \]</div>
             Another original score is the <i><b>R</b>AST <b>F</b>unctional <b>C</b>omplementarity</i> (RFC) score, which determines the Jacarrd Index between the sets of genome 
             ontologies for each grouping. This score probes functional alignment of the groupings, where presumably groupings with high functional similarity will compete and be more antagonistic than 
@@ -98,7 +98,7 @@ description : |
         <p>
             The <i><b>M</b>etabolic <b>R</b>esource <b>O</b>verlap</i> (MRO) score is in the SMETANA suite and several earlier published scores, albeit with slight algorithmic variations. The MRO quantifies the fraction of a member's nutritional requirements, in a given media or the complete media by default, that overlap with the other member's nutritional requirements 
                 <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MRO.png">
-            and is importantly directional (by replacing the denominator member), which can capture directional dependencies of interactions (e.g. lawn versus spot). The minimal media $M$ of each member is determined by minimizing the total exchange flux.
+            and is importantly directional (by replacing the denominator member), which can capture directional dependencies of interactions (e.g. lawn versus spot). The minimal media <i>M</i> of each member is determined by minimizing the total exchange flux.
         </p>
     
         <h4>MIP</h4>

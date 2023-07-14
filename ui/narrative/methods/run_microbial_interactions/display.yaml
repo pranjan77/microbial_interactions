@@ -58,18 +58,14 @@ description : |
         <h4>Functional Complementarity (FC)</h4>    
         <p>
             The FC score is calculated as the Jiccard Index of ontologies $O$ from either RAST or another annotation software
-            <div class="latex">
-                \[ FC= \left( \frac{O_1 \cap O_2}{O_1 \cup O_2} \right)~~. \]
-            </div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/FC.png">
             This score captures the potential for niche overlap and therefore negative interactions. The broad assessment of the entire genome further captures secondary metabolic interactions as well as the primary metabolism that is embodied in genome-scale metabolic models. 
         </p>
     
         <h4>Growth Yield Difference (GYD)</h4>    
         <p>
             The GYD score evaluates the disparity in growth rate between the isolated members
-            <div class="latex">
-                \[ GYD = \frac{abs(G_{1}-G_{2})}{min(G_{1}, G_{2})}~~, \]
-            </div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/GYD.png">
             by normalizing the difference in the member's growth rates by the growth rate of the slower growing member. A relatively large disparity in the isolate growth rates may foreshadow a negative interaction when the members are combined, where one member rapidly begins dominating the environment and media consumption which leaves the other member potentially starved and possibly launching antibiotic warfare in desparation to survive. 
     
             We additionally developed a few original scores. The first of these is the <i><b>G</b>rowth <b>R</b>ate <b>D</b>ifference</i> (GRD) score, which quantifies the difference in monocultural 
@@ -85,19 +81,14 @@ description : |
         <h4>Costless Interaction Potential (CIP)</h4>    
         <p>
             The CIP score quantifies the union of costless excreta <i>CE</i> (compounds that are excreted at maximal growth and therefore have no fitness cost associated with their excretion) in the isolated members
-            <div class="latex">
-                \[ CIP = len(CE_1 \cup CE_2)~~, \]
-            </div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/CIP.png">
             which may contextualize syntrophic exchanges in their likelihood for exchange based on the fitness expense of their excretion. Our curation of the MIP score can be further contextualized with costless excreta via the intersection of exchanged compounds in the MIP score and the CIP for the same member pair. 
         </p>
     
         <h4>Biological Interaction Potential (BIT)</h4>    
         <p>
             The BIT score categorizes the member interaction into one of the classical descriptions -- competitive, amensalism, neutral, parasitism, commensalism, and mutualism -- based on relative growth of the members as isolates <i>G<sub>1</sub></i> versus in the community environment <i>G<sub>1,comm</sub></i>
-            <div class="latex">
-                \[ BIT_1 &= G_{1,comm}-G_1 \\
-                   BIT_2 &= G_{2,comm}-G_2~~, \]
-            </div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/BIT.png">
             which provides a tangible biological description of the member interaction based on growth through the primary metabolism.
         </p>
     
@@ -106,28 +97,28 @@ description : |
         <h4>MRO</h4>
         <p>
             The <i><b>M</b>etabolic <b>R</b>esource <b>O</b>verlap</i> (MRO) score is in the SMETANA suite and several earlier published scores, albeit with slight algorithmic variations. The MRO quantifies the fraction of a member's nutritional requirements, in a given media or the complete media by default, that overlap with the other member's nutritional requirements 
-                <div class="latex">\[ MRO= \frac{|M_1 \cap M_2|}{|M_1|} \]</div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MRO.png">
             and is importantly directional (by replacing the denominator member), which can capture directional dependencies of interactions (e.g. lawn versus spot). The minimal media $M$ of each member is determined by minimizing the total exchange flux.
         </p>
     
         <h4>MIP</h4>
         <p>
             The <i><b>M</b>etabolic <b>I</b>nteraction <b>P</b>otential</i> (MIP) score is also in the SMETANA and earlier suites. This score quantifies syntrophic exchanges between the members. Our curation computes the MIP as the difference in exchanged compounds versus transported compounds in the compartmentalized community model
-                <div class="latex">\[ MIP=M_{transports}-M_{exchanges}~~, \]</div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MIP.png">
             where compounds that the members are transporting but the community is not exchanging with the media must be sourced from syntrophy. The MIP compounds that are costlessly excreted can also be quantified as a subscore of the MIP, and may better represent the compounds that are favorably exchanged in the community.
         </p>
     
         <h4>PC</h4>
         <p>
             The <i><b>P</b>otential <b>C</b>ooperation</i> (PC) score quantifies the net effect of co-growth relative to isolate growth, and in our curation is determined as the ratio of community growth to the sum of isolated member growths
-                <div class="latex">\[ PC = \frac{G_{comm}}{G_1+G_2}~~, \]</div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/PC.png">
             and is therefore essentially a continuous quantitative representation of the discrete qualitative BIT score.
         </p>
     
         <h4>BSS</h4>
         <p>
             The <i><b>B</b>iosynthetic <b>S</b>upport <b>S</b>core</i> (BSS) score quantifies the capacity of a member to parasitize another member by topologically evaluating the proportion of a member's nutritional requirements that are in the other member's cytoplasmic metabolites
-                <div class="latex">\[ BSS = \frac{M_i \cap R_j}{M_i}~~. \]</div>
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/BSS.png">
             This score therefore quantifies the capacity or incentive for negative interaction.
         </p>
     

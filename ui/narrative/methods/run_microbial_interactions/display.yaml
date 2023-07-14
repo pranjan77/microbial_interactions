@@ -24,13 +24,13 @@ suggestions:
 # Configure the display and description of parameters
 #
 parameters :
-    input_models :
+    member_models :
         ui-name : |
-            Models
+            Member Models
         short-hint : |
-            Pairwise community models
+           Metabolic Models of individual Genomes 
         long-hint  : |
-            Pairwise community models
+           Metabolic Models of individual Genomes
     media :
         ui-name : |
             Media

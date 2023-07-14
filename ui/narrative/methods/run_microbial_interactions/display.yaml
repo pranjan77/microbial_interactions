@@ -45,7 +45,7 @@ description : |
     <div class="app-description">
         <h2>Background</h2>
         <p>
-            Microbial communities are characteristically complex and high-dimensional. The interactions between members in these systems are unfortunately intractable for experimental methods, and are insufficiently captured by computational simulations, due to their combinatorial complexity. Metrics that isolate and quantify biological dimensions of interaction (e.g. metabolic competition, functional complementarity, parasitic potential) are therefore attractive to simplify community complexity and elucidate which dimensions govern interactions between member groupings. Several scores have been proposed since 2008, which principally includes the <i><b>S</b>pecies <b>Met</b>abolic Interaction <b>Ana</b>lysis</i> (SMETANA) suite of scores <sup><a href="#smetana">[1]</a></sup>. The SMETANA scores, however, do not capture several biologically dimensions that are involved in interactions and are additionally not comprehensively wrapped into an open-source web Application.
+            Microbial communities are characteristically complex and high-dimensional. The interactions between members in these systems are unfortunately intractable for experimental methods, and are insufficiently captured by computational simulations, due to their combinatorial complexity. Metrics that isolate and quantify biological dimensions of interaction (e.g. metabolic competition, functional complementarity, parasitic potential) are therefore attractive to simplify community complexity and elucidate which dimensions govern interactions between member groupings. Several scores have been proposed since 2008, which principally includes the <i><b>S</b>pecies <b>Met</b>abolic Interaction <b>Ana</b>lysis</i> (SMETANA) suite of scores <sup>[1]</sup>. The SMETANA scores, however, do not capture several biologically dimensions that are involved in interactions and are additionally not comprehensively wrapped into an open-source web Application.
         </p>
     
         <h2>CommScores</h2>
@@ -75,7 +75,7 @@ description : |
             <div class="latex">\[ GRD = \frac{abs(G_{g1}-G_{g2})}{min(G_{g1}, G_{g2})} \]</div>
             Another original score is the <i><b>R</b>AST <b>F</b>unctional <b>C</b>omplementarity</i> (RFC) score, which determines the Jacarrd Index between the sets of genome 
             ontologies for each grouping. This score probes functional alignment of the groupings, where presumably groupings with high functional similarity will compete and be more antagonistic than 
-            groupings with minimal similarity. The genome ontologies are sourced from the RAST annotations that are available on KBase <sup><a href="#kbase">[2]</a></sup>. 
+            groupings with minimal similarity. The genome ontologies are sourced from the RAST annotations that are available on KBase <sup>[2]</sup>. 
         </p>
     
         <h4>Costless Interaction Potential (CIP)</h4>    
@@ -139,20 +139,17 @@ description : |
         </ol>
     </div>
     
-    
-    <div class="publication">
-        <h3>Related Publications</h3>
-        <ol>
-            <li id="smetana">
-                Zelezniak, A., Andrejev, S., Ponomarova, O., Mende, D. R., Bork, P., &#38; Patil, K. R. (2015). 
-                Metabolic dependencies drive species co-occurrence in diverse microbial communities. <i>Proceedings of the National Academy of Sciences of the United States of America</i>, 
-                <i>112</i>(20), 6449-6454. <a href="https://www.pnas.org/doi/abs/10.1073/pnas.1421834112">https://www.pnas.org/doi/abs/10.1073/pnas.1421834112</a>
-            </li>
-            <li id="kbase">
-                Arkin, A. P., Cottingham, R. W., Henry, C. S., Harris, N. L., Stevens, R. L., Maslov, S., Dehal, P., Ware, D., Perez, F., Canon, S., Sneddon, 
-                M. W., Henderson, M. L., Riehl, W. J., Murphy-Olson, D., Chan, S. Y., Kamimura, R. T., Kumari, S., Drake, M. M., Brettin, T. S., … Yu, D. (2018). 
-                KBase: The United States department of energy systems biology knowledgebase. <i>Nature Biotechnology</i>, <i>36</i>(7), 566-569. 
-                <a href="https://doi.org/10.1038/nbt.4163">https://doi.org/10.1038/nbt.4163</a>
-            </li>
-        </ol>
-    </div>
+
+publication :
+    -
+      pmid: 25977477
+      display-text: |
+          Zelezniak, A., Andrejev, S., Ponomarova, O., Mende, D. R., Bork, P., &#38; Patil, K. R. Metabolic dependencies drive species co-occurrence in diverse microbial communities.
+          <i>Proceedings of the National Academy of Sciences of the United States of America</i> 2015;112/20: 6449-6454. doi:10.1073/pnas.1421834112
+      link: https://doi.org/10.1073/pnas.1421834112
+
+    - pmid: 25977477
+      display-text: |
+          Arkin, A. P., Cottingham, R. W., Henry, C. S., Harris, N. L., Stevens, R. L., Maslov, S., Dehal, P., Ware, D., Perez, F., Canon, S., Sneddon, M. W., Henderson, M. L., Riehl, W. J., Murphy-Olson, D., Chan, S. Y., Kamimura, R. T., Kumari, S., Drake, M. M., Brettin, T. S., … Yu, D. KBase: The United States department of energy systems biology knowledgebase.
+          <i>>Nature Biotechnology</i> 2018;36/7: 566-569. doi:10.1038/nbt.4163
+      link: https://doi.org/10.1038/nbt.4163

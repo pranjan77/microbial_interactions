@@ -72,10 +72,20 @@ class microbial_interactions:
         # return variables are: output
         #BEGIN run_microbial_interactions
 
+        print (params)
+
+
+
         media_objs = params['media']
         input_kbase_models = params['member_models']
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
+
+        print (kbase_api)
+
+
+        print (media_objs)
+        print (input_kbase_models)
 
         result_dir = os.path.join(self.shared_folder,  str(uuid.uuid4()))
         print(result_dir)
@@ -84,9 +94,19 @@ class microbial_interactions:
 
         models = [kbase_api.get_from_ws(model) for model in input_kbase_models]
         media = [kbase_api.get_from_ws(medium) for medium in media_objs]
+
+        print ("#############Models########\n")
+        print (models)
+        print ("##############Media#########\n")
+        print (media)
+
         df, mets = MSCommScores.kbase_output(models, kbase_obj=kbase_api, environments=media)
+
+        print (df)
+
         reportHTML = commscores_report(df, mets, index_html_path)
 
+        
 
         SMUtils = SmetanaUtils(self.config, params)
         output = SMUtils.create_html_report(result_dir, params['workspace_name'])

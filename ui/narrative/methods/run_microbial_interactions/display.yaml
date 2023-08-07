@@ -1,10 +1,10 @@
 #
 # define display information
 #
-name: Calculate Metabolic Interaction Scores
+name: Commscores - Calculate Metabolic Interaction Scores
 
 tooltip: |
-    Calculate metabolic interaction scores
+    Commscores - Calculate Metabolic Interaction Scores
 
 screenshots: []
 

@@ -63,9 +63,17 @@ class microbial_interactionsTest(unittest.TestCase):
         #
         # Check returned data with
         # self.assertEqual(ret[...], ...) or other unittest methods
-        params = {
+        params1 = {
             'workspace_name':'pranjan77:narrative_1650064809467',
-            "input_models":[ "137367/1887/1", "137367/2417/1", "137367/1925/1" ],
+            "member_models":[ "137367/1887/1", "137367/2417/1", "137367/1925/1" ],
             "media": ["137367/1656/1"]
         }
+
+        params2 = {
+            'workspace_name':'pranjan77:narrative_1684888643360',
+            "member_models": ["70893/18/1", "70893/16/1"], 
+            "media": ["70893/15/1"]
+        }
+        params = params1
+
         ret = self.serviceImpl.run_microbial_interactions(self.ctx, params)

@@ -1,10 +1,10 @@
 #
 # define display information
 #
-name: CommScores; Calculate Metabolic Interaction Scores
+name: Commscores - Calculate Metabolic Interaction Scores
 
 tooltip: |
-    CommScores; Calculate metabolic interaction scores
+    Commscores - Calculate Metabolic Interaction Scores
 
 screenshots: []
 
@@ -24,13 +24,13 @@ suggestions:
 # Configure the display and description of parameters
 #
 parameters :
-    input_models :
+    member_models :
         ui-name : |
-            Models
+            Member Models
         short-hint : |
-            Pairwise community models
+           Metabolic Models of individual Genomes 
         long-hint  : |
-            Pairwise community models
+           Metabolic Models of individual Genomes
     media :
         ui-name : |
             Media

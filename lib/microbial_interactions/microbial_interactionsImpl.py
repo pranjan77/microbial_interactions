@@ -3,7 +3,7 @@
 import logging
 import os
 import uuid
-from microbial_interactions.Utils.SmetanaUtils import SmetanaUtils
+from microbial_interactions.Utils.SmetanaUtils import ReportUtils
 from installed_clients.KBaseReportClient import KBaseReport
 from commscores import CommScores
 import cobrakbase
@@ -76,6 +76,7 @@ class microbial_interactions:
         print(result_dir)
         self._mkdir_p(result_dir)
         index_html_path = os.path.join(result_dir, "index.html")
+
         # process the App parameters for CommScores API arguments
         ## models
         models_lists = []
@@ -84,10 +85,11 @@ class microbial_interactions:
         if len(models_lists) == 1:  models_lists = models_lists[0]
         ## media
         media = [kbase_api.get_from_ws(medium) for medium in params['media']]
+        print("#############Models########\n", models_lists, "##############Media#########\n", media)
+
         # run the CommScores API
         df, mets = CommScores.kbase_output(models_lists, kbase_obj=kbase_api, environments=media)
         reportHTML = CommScores.html_report(df, mets, index_html_path)
-
         reportUtils = ReportUtils(self.config, params)
         output = reportUtils.create_html_report(result_dir, params['workspace_name'])
 

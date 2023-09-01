@@ -108,7 +108,7 @@ class microbial_interactions:
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        df, mets = CommScores.kbase_output(models_lists, kbase_obj=kbase_api, environments=media)
+        df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media)
         reportHTML = CommScores.html_report(df, mets, index_html_path)
         output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
         print(output)

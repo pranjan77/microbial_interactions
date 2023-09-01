@@ -1,8 +1,6 @@
 FROM kbase/sdkpython:3.8.0
 MAINTAINER KBase Developer
 
-
-
 RUN apt-get update
 #RUN apt-get -y install  vim
 

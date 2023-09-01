@@ -27,7 +27,7 @@ from installed_clients.DataFileUtilClient import DataFileUtil
 from installed_clients.KBaseReportClient import KBaseReport
 
 
-class SmetanaUtils:
+class ReportUtils:
 
 
     def __init__(self, config, params):

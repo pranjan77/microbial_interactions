@@ -3,9 +3,9 @@
 import logging
 import os
 import uuid
-from microbial_interactions.Utils.SmetanaUtils import SmetanaUtils
 from installed_clients.KBaseReportClient import KBaseReport
-from modelseedpy import MSCommScores, commscores_report
+from installed_clients.DataFileUtilClient import DataFileUtil
+from commscores import CommScores
 import cobrakbase
 
 #END_HEADER
@@ -43,6 +43,7 @@ class microbial_interactions:
         logging.basicConfig(format='%(created)s %(levelname)s: %(message)s',
                             level=logging.INFO)
         self.config = config
+
     def _mkdir_p(self, path):
         """
         _mkdir_p: make directory for given path
@@ -60,6 +61,25 @@ class microbial_interactions:
         #END_CONSTRUCTOR
         pass
 
+    @staticmethod
+    def create_html_report(output_dir, workspace_name):
+        callback_url = os.environ['SDK_CALLBACK_URL']
+        report_info = KBaseReport(callback_url).create_extended_report({
+            'direct_html_link_index': 0,
+            'html_links': [{
+                'shock_id': DataFileUtil(callback_url).file_to_shock(
+                    {'file_path': output_dir, 'pack': 'zip'})['shock_id'],
+                'name': 'index.html',
+                'label': 'index.html',
+                'description': 'HTML report for CommScores'
+            }],
+            'report_object_name': 'smetana_report_' + str(uuid.uuid4()),
+            'workspace_name': workspace_name
+        })
+        return {
+            'report_name': report_info['name'],
+            'report_ref': report_info['ref']
+        }
 
     def run_microbial_interactions(self, ctx, params):
         """
@@ -69,57 +89,32 @@ class microbial_interactions:
            "report_name" of String, parameter "report_ref" of String
         """
         # ctx is the context object
-        # return variables are: output
-        #BEGIN run_microbial_interactions
-
-        print (params)
-
-
-
-        media_objs = params['media']
-        input_kbase_models = params['member_models']
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
-
-        print (kbase_api)
-
-
-        print (media_objs)
-        print (input_kbase_models)
-
+        # package the output report
         result_dir = os.path.join(self.shared_folder,  str(uuid.uuid4()))
         print(result_dir)
         self._mkdir_p(result_dir)
         index_html_path = os.path.join(result_dir, "index.html")
 
-        models = [kbase_api.get_from_ws(model) for model in input_kbase_models]
-        media = [kbase_api.get_from_ws(medium) for medium in media_objs]
+        # process the App parameters for CommScores API arguments
+        ## models
+        models_lists = []
+        for model_dic in params["model_list"]:
+            models_lists.append([kbase_api.get_from_ws(model) for model in model_dic["member_models"]])
+        if len(models_lists) == 1:  models_lists = models_lists[0]
+        ## media
+        media = [kbase_api.get_from_ws(medium) for medium in params['media']]
+        print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
-        print ("#############Models########\n")
-        print (models)
-        print ("##############Media#########\n")
-        print (media)
-
-        df, mets = MSCommScores.kbase_output(models, kbase_obj=kbase_api, environments=media)
-
-        print (df)
-
-        reportHTML = commscores_report(df, mets, index_html_path)
-
-        
-
-        SMUtils = SmetanaUtils(self.config, params)
-        output = SMUtils.create_html_report(result_dir, params['workspace_name'])
-
+        # run the CommScores API
+        df, mets = CommScores.kbase_output(models_lists, kbase_obj=kbase_api, environments=media)
+        reportHTML = CommScores.html_report(df, mets, index_html_path)
+        output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
         print(output)
-        #END run_microbial_interactions
-
-        # At some point might do deeper type checking...
-        if not isinstance(output, dict):
-            raise ValueError('Method run_microbial_interactions return value ' +
-                             'output is not type dict as required.')
-        # return the results
+        # NOTE: At some point might do deeper type checking...
         return [output]
+
     def status(self, ctx):
         #BEGIN_STATUS
         returnVal = {'state': "OK",

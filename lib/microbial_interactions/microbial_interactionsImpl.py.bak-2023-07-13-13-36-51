@@ -84,7 +84,7 @@ class microbial_interactions:
 
         models = [kbase_api.get_from_ws(model) for model in input_kbase_models]
         media = [kbase_api.get_from_ws(medium) for medium in media_objs]
-        df, mets = MSCommScores.kbase_output(models, kbase_obj=kbase_api, environments=media)
+        df, mets = MSCommScores.report_generation(models, kbase_obj=kbase_api, environments=media)
         reportHTML = commscores_report(df, mets, index_html_path)
 
 

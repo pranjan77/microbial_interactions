@@ -13,10 +13,14 @@ RUN pip install --upgrade pip
 RUN pip install h5py
 
 RUN pip install git+https://github.com/Fxe/cobrakbase.git@37029339394e1536217eb88b9f6691fc4dee0e92
+<<<<<<< HEAD
+RUN pip install git+https://github.com/freiburgermsu/CommScores.git
+=======
 RUN pip install git+https://github.com/freiburgermsu/ModelSEEDpy.git@eb97e0bddd3133cd30bc417101d964a6a2a645e8
 
 
 
+>>>>>>> 3512f731ed733ca6c75260916084bed9fdef17f5
 
 
 

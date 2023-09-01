@@ -5,7 +5,7 @@ import os
 import uuid
 from microbial_interactions.Utils.SmetanaUtils import SmetanaUtils
 from installed_clients.KBaseReportClient import KBaseReport
-from modelseedpy import MSCommScores, commscores_report
+from commscores import CommScores
 import cobrakbase
 
 #END_HEADER
@@ -69,27 +69,27 @@ class microbial_interactions:
            "report_name" of String, parameter "report_ref" of String
         """
         # ctx is the context object
-        # return variables are: output
-        #BEGIN run_microbial_interactions
-
-        media_objs = params['media']
-        input_kbase_models = params['member_models']
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
-
+        # package the output report
         result_dir = os.path.join(self.shared_folder,  str(uuid.uuid4()))
         print(result_dir)
         self._mkdir_p(result_dir)
         index_html_path = os.path.join(result_dir, "index.html")
+        # process the App parameters for CommScores API arguments
+        ## models
+        models_lists = []
+        for model_dic in params["model_list"]:
+            models_lists.append([kbase_api.get_from_ws(model) for model in model_dic["member_models"]])
+        if len(models_lists) == 1:  models_lists = models_lists[0]
+        ## media
+        media = [kbase_api.get_from_ws(medium) for medium in params['media']]
+        # run the CommScores API
+        df, mets = CommScores.kbase_output(models_lists, kbase_obj=kbase_api, environments=media)
+        reportHTML = CommScores.html_report(df, mets, index_html_path)
 
-        models = [kbase_api.get_from_ws(model) for model in input_kbase_models]
-        media = [kbase_api.get_from_ws(medium) for medium in media_objs]
-        df, mets = MSCommScores.kbase_output(models, kbase_obj=kbase_api, environments=media)
-        reportHTML = commscores_report(df, mets, index_html_path)
-
-
-        SMUtils = SmetanaUtils(self.config, params)
-        output = SMUtils.create_html_report(result_dir, params['workspace_name'])
+        reportUtils = ReportUtils(self.config, params)
+        output = reportUtils.create_html_report(result_dir, params['workspace_name'])
 
         print(output)
         #END run_microbial_interactions

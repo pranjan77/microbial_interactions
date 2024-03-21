@@ -38,7 +38,34 @@ parameters :
             Media
         long-hint  : |
             Media
-
+    analysis_type :
+        ui-name : |
+            Analysis Type
+        short-hint : |
+            Analysis Type
+        long-hint  : |
+            Analysis Type
+    costless :
+        ui-name : |
+            Costless
+        short-hint : |
+            Costless
+        long-hint  : |
+            Costless
+    cip_score :
+        ui-name : |
+            CIP Score
+        short-hint : |
+            CIP score
+        long-hint  : |
+            CIP Score
+    skip_questionable_models :
+        ui-name : |
+            Skip Questionable Models
+        short-hint : |
+            Skip Questionable Models
+        long-hint  : |
+            Skip Questionable Models
 
 
 description : |

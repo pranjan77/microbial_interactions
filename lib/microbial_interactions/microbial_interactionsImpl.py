@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 #BEGIN_HEADER
-import logging
-import os
-import uuid
-from installed_clients.KBaseReportClient import KBaseReport
 from installed_clients.DataFileUtilClient import DataFileUtil
+from installed_clients.KBaseReportClient import KBaseReport
 from commscores import CommScores
+from pandas import concat
 import cobrakbase
+import logging
+import uuid
+import os
 
 #END_HEADER
 
@@ -108,8 +109,16 @@ class microbial_interactions:
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media)
-        reportHTML = CommScores.html_report(df, mets, index_html_path)
+        if params["inter_model_assessment"] == "intra" and len(models_lists) > 1:
+            dfs, allmets = [], []
+            for model_list in models_lists:
+                df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media)
+                dfs.append(df)  ;  allmets.append(mets)
+            combined_df = concat(dfs, axis=0).reset_index(drop=True)
+            reportHTML = CommScores.html_report(combined_df, mets, index_html_path)
+        else:
+            df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media)
+            reportHTML = CommScores.html_report(df, mets, index_html_path)
         output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
         print(output)
         # NOTE: At some point might do deeper type checking...

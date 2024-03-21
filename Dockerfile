@@ -13,6 +13,7 @@ RUN pip install h5py
 RUN pip install git+https://github.com/Freiburgermsu/modelseedpy.git@f0ea546a9c953da917c5b28e7ed23f30fe0cda0e
 RUN pip install git+https://github.com/Fxe/cobrakbase.git@37029339394e1536217eb88b9f6691fc4dee0e92
 RUN pip install commscores
+RUN pip install pandas
 
 COPY ./ /kb/module
 RUN mkdir -p /kb/module/work

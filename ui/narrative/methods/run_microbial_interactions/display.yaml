@@ -24,7 +24,7 @@ suggestions:
 # Configure the display and description of parameters
 #
 parameters :
-    member_models :
+    member_modelsets :
         ui-name : |
             Member Models
         short-hint : |

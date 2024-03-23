@@ -70,25 +70,22 @@ class microbial_interactionsTest(unittest.TestCase):
         }
 
         params2 = {
-            'workspace_name':'pranjan77:narrative_1684888643360',
+            'workspace_name':'freiburgermsu:narrative_1692451483798',
             "member_models": ["70893/18/1", "70893/16/1"], 
             "media": ["70893/15/1"]
         }
 
-        # newest params
-        intra_params = {
-            'workspace_name':'pranjan77:narrative_1684888643360',
-            "member_models": [["70893/18/1", "70893/16/1"], ["137367/1887/1", "137367/2417/1", "137367/1925/1"]], 
-            "media": ["70893/15/1"],
-            "inter_model_assessment": "intra"
-        }
-        inter_params = {
-            'workspace_name':'pranjan77:narrative_1684888643360',
-            "member_models": [["70893/18/1", "70893/16/1"], ["137367/1887/1", "137367/2417/1", "137367/1925/1"]],
-            "media": ["70893/15/1"],
-            "inter_model_assessment": "inter"
-        }
+        params3 = {
+            "member_modelsets": ["154981/105/1", "154981/106/1", "154981/111/1"],
+            "media": ["154981/21/1", "154981/19/1"],
+            "analysis_type": "Inter",
+            "costless": 1,
+            "cip_score": 1,
+            "skip_questionable_models": 1
+    }
 
-        params = params1
+
+
+        params = params3
 
         ret = self.serviceImpl.run_microbial_interactions(self.ctx, params)

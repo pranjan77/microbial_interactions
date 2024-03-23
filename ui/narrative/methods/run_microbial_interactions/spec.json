@@ -11,16 +11,18 @@
     },
     "parameters": [ 
         {
-            "id": "member_models",
+            "id": "member_modelsets",
             "optional": false,
             "advanced": false,
             "allow_multiple": true,
             "default_values": [ "" ],
             "field_type": "text",
             "text_options": {
-                "valid_ws_types": ["KBaseFBA.FBAModel" ]
+                "valid_ws_types": ["KBaseExperiments.FBAModelSet"]
              }
         },
+        
+
         {
             "id": "media",
             "optional": true,
@@ -30,6 +32,62 @@
             "field_type": "text",
             "text_options": {
                 "valid_ws_types": ["KBaseBiochem.Media" ]
+            }
+        },
+        {
+            "id": "analysis_type",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values": [ "Inter" ], 
+            "field_type": "dropdown",
+            "dropdown_options": {
+                "options": [
+                    {
+                        "value": "Inter",
+                        "display": "Inter set analysis"
+                    },
+                    {
+                        "value": "Intra",
+                        "display": "Intra set analysis"
+                    }
+                ]
+            }
+        } ,
+                {
+            "id": "costless",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+                {
+            "id": "cip_score",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+                {
+            "id": "skip_questionable_models",
+            "optional": false,
+            "advanced": false,
+            "allow_multiple": false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":{
+                "checked_value": 1,
+                "unchecked_value": 0
             }
         }
     ],
@@ -46,12 +104,29 @@
                     "narrative_system_variable": "workspace_id",
                     "target_property": "workspace_id"
                 },{
-                    "input_parameter": "member_models",
-                    "target_property": "member_models"
+                    "input_parameter": "member_modelsets",
+                    "target_property": "member_modelsets"
                 },{
                     "input_parameter": "media",
                     "target_property": "media"
+                },
+                {
+                    "input_parameter": "analysis_type",
+                    "target_property": "analysis_type"
+                },
+                {
+                    "input_parameter": "costless",
+                    "target_property": "costless"
+                },
+                {
+                    "input_parameter": "cip_score",
+                    "target_property": "cip_score"
+                },
+                {
+                    "input_parameter": "skip_questionable_models",
+                    "target_property": "skip_questionable_models"
                 }
+
 
                 
             ],

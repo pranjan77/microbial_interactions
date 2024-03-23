@@ -2,12 +2,16 @@
 #BEGIN_HEADER
 from installed_clients.DataFileUtilClient import DataFileUtil
 from installed_clients.KBaseReportClient import KBaseReport
+from installed_clients.WorkspaceClient import Workspace
+from installed_clients.DataFileUtilClient import DataFileUtil
+
 from commscores import CommScores
 from pandas import concat
 import cobrakbase
 import logging
 import uuid
 import os
+
 
 #END_HEADER
 
@@ -41,6 +45,7 @@ class microbial_interactions:
         self.callback_url = os.environ['SDK_CALLBACK_URL']
         self.shared_folder = config['scratch']
         self.ws_url = config["workspace-url"]
+        self.dfu = DataFileUtil(self.callback_url)
         logging.basicConfig(format='%(created)s %(levelname)s: %(message)s',
                             level=logging.INFO)
         self.config = config
@@ -101,11 +106,15 @@ class microbial_interactions:
         # process the App parameters for CommScores API arguments
         ## models
 
-        models_lists = []
-        for model_list in model_lists_ids:
-            models_lists.append([kbase_api.get_from_ws(model) for model in model_list])
+        ws = Workspace(self.ws_url)
 
+        modelset_refs = params["member_modelsets"]
+        model_lists_ids = list ()
+        for ref in modelset_refs:
+            modellist = list(ws.get_objects2({'objects': [{"ref": ref}]})['data'][0]['data']['instances'].keys())
+            model_lists_ids.append(modellist)
 
+        models_lists = [[kbase_api.get_from_ws(model) for model in model_list] for model_list in model_lists_ids]
         if len(models_lists) == 1:  models_lists = models_lists[0]
         ## media
         media = [kbase_api.get_from_ws(medium) for medium in params['media']]

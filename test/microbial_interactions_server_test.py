@@ -74,6 +74,21 @@ class microbial_interactionsTest(unittest.TestCase):
             "member_models": ["70893/18/1", "70893/16/1"], 
             "media": ["70893/15/1"]
         }
+
+        # newest params
+        intra_params = {
+            'workspace_name':'pranjan77:narrative_1684888643360',
+            "member_models": [["70893/18/1", "70893/16/1"], ["137367/1887/1", "137367/2417/1", "137367/1925/1"]], 
+            "media": ["70893/15/1"],
+            "inter_model_assessment": "intra"
+        }
+        inter_params = {
+            'workspace_name':'pranjan77:narrative_1684888643360',
+            "member_models": [["70893/18/1", "70893/16/1"], ["137367/1887/1", "137367/2417/1", "137367/1925/1"]],
+            "media": ["70893/15/1"],
+            "inter_model_assessment": "inter"
+        }
+
         params = params1
 
         ret = self.serviceImpl.run_microbial_interactions(self.ctx, params)

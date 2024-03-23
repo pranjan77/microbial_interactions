@@ -100,9 +100,12 @@ class microbial_interactions:
 
         # process the App parameters for CommScores API arguments
         ## models
+
         models_lists = []
-        for model_dic in params["model_list"]:
-            models_lists.append([kbase_api.get_from_ws(model) for model in model_dic["member_models"]])
+        for model_list in model_lists_ids:
+            models_lists.append([kbase_api.get_from_ws(model) for model in model_list])
+
+
         if len(models_lists) == 1:  models_lists = models_lists[0]
         ## media
         media = [kbase_api.get_from_ws(medium) for medium in params['media']]
@@ -112,12 +115,16 @@ class microbial_interactions:
         if params["inter_model_assessment"] == "intra" and len(models_lists) > 1:
             dfs, allmets = [], []
             for model_list in models_lists:
-                df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media)
+                df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,
+                                                        cip_score=params["cip_score"], costless=params["costless"],
+                                                        anme_comm=params["skip_questionable_models"])
                 dfs.append(df)  ;  allmets.append(mets)
             combined_df = concat(dfs, axis=0).reset_index(drop=True)
             reportHTML = CommScores.html_report(combined_df, mets, index_html_path)
         else:
-            df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media)
+            df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media,
+                                                    cip_score=params["cip_score"], costless=params["costless"],
+                                                    anme_comm=params["skip_questionable_models"])
             reportHTML = CommScores.html_report(df, mets, index_html_path)
         output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
         print(output)

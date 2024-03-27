@@ -104,6 +104,8 @@ class microbial_interactions:
         self._mkdir_p(result_dir)
         index_html_path = os.path.join(result_dir, "index.html")
 
+        msdb_path = "/msdb"
+
         # process the App parameters for CommScores API arguments
         ## models
 
@@ -127,15 +129,18 @@ class microbial_interactions:
             for model_list in models_lists:
                 df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,
                                                         cip_score=params["cip_score"], costless=params["costless"],
-                                                        anme_comm=params["skip_questionable_models"])
+                                                        skip_bad_media=True)
+                df.replace('', 0.0, inplace=True)
                 dfs.append(df)  ;  allmets.append(mets)
             combined_df = concat(dfs, axis=0).reset_index(drop=True)
-            reportHTML = CommScores.html_report(combined_df, mets, index_html_path)
+            reportHTML = CommScores.html_report(combined_df, mets, index_html_path, msdb_path=msdb_path)
         else:
             df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media,
                                                     cip_score=params["cip_score"], costless=params["costless"],
-                                                    anme_comm=params["skip_questionable_models"])
-            reportHTML = CommScores.html_report(df, mets, index_html_path)
+                                                    skip_bad_media=True)
+
+            df.replace('', 0.0, inplace=True)
+            reportHTML = CommScores.html_report(df, mets, index_html_path, msdb_path=msdb_path)
         output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
         print(output)
         #END run_microbial_interactions

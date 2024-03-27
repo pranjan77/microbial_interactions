@@ -105,10 +105,13 @@
                     "target_property": "workspace_id"
                 },{
                     "input_parameter": "member_modelsets",
-                    "target_property": "member_modelsets"
+                    "target_property": "member_modelsets",
+                    "target_type_transform":"ref"
+  
                 },{
                     "input_parameter": "media",
-                    "target_property": "media"
+                    "target_property": "media",
+                    "target_type_transform":"ref"
                 },
                 {
                     "input_parameter": "analysis_type",

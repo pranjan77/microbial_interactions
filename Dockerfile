@@ -16,6 +16,8 @@ RUN pip install git+https://github.com/Fxe/cobrakbase.git@37029339394e1536217eb8
 RUN pip install git+https://github.com/freiburgermsu/commscores.git@dev
 RUN pip install pandas
 
+RUN rm -rf /opt/conda3/lib/python3.8/site-packages/modelseedpy_freiburgermsu && cp -R  /opt/conda3/lib/python3.8/site-packages/modelseedpy/ /opt/conda3/lib/python3.8/site-packages/modelseedpy_freiburgermsu
+
 COPY ./ /kb/module
 RUN mkdir -p /kb/module/work
 RUN chmod -R a+rw /kb/module

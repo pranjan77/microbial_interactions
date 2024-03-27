@@ -95,6 +95,7 @@ class microbial_interactions:
            "report_name" of String, parameter "report_ref" of String
         """
         # ctx is the context object
+        #BEGIN run_microbial_interactions
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
         # package the output report
@@ -121,7 +122,7 @@ class microbial_interactions:
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        if params["inter_model_assessment"] == "intra" and len(models_lists) > 1:
+        if params["analysis_type"] == "Intra" and len(models_lists) > 1:
             dfs, allmets = [], []
             for model_list in models_lists:
                 df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,
@@ -137,7 +138,12 @@ class microbial_interactions:
             reportHTML = CommScores.html_report(df, mets, index_html_path)
         output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
         print(output)
-        # NOTE: At some point might do deeper type checking...
+        #END run_microbial_interactions
+        # At some point might do deeper type checking...
+        if not isinstance(output, dict):
+            raise ValueError('Method run_microbial_interactions return value ' +
+                             'output is not type dict as required.')
+        # return the results
         return [output]
 
     def status(self, ctx):

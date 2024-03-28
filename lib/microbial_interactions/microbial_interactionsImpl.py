@@ -64,11 +64,7 @@ class microbial_interactions:
             else:
                 raise
 
-        #END_CONSTRUCTOR
-        pass
-
-    @staticmethod
-    def create_html_report(output_dir, workspace_name):
+    def create_html_report(self, output_dir, workspace_name):
         callback_url = os.environ['SDK_CALLBACK_URL']
         report_info = KBaseReport(callback_url).create_extended_report({
             'direct_html_link_index': 0,
@@ -79,13 +75,18 @@ class microbial_interactions:
                 'label': 'index.html',
                 'description': 'HTML report for CommScores'
             }],
-            'report_object_name': 'smetana_report_' + str(uuid.uuid4()),
+            'report_object_name': 'commscores_report_' + str(uuid.uuid4()),
             'workspace_name': workspace_name
         })
         return {
             'report_name': report_info['name'],
             'report_ref': report_info['ref']
         }
+
+
+
+        #END_CONSTRUCTOR
+        pass
 
     def run_microbial_interactions(self, ctx, params):
         """
@@ -141,7 +142,7 @@ class microbial_interactions:
 
             df.replace('', 0.0, inplace=True)
             reportHTML = CommScores.html_report(df, mets, index_html_path, msdb_path=msdb_path)
-        output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
+        output = self.create_html_report(result_dir, params['workspace_name'])
         print(output)
         #END run_microbial_interactions
         # At some point might do deeper type checking...

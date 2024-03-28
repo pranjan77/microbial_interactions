@@ -85,6 +85,7 @@ class microbial_interactionsTest(unittest.TestCase):
     }
 
         params3 = {
+            "workspace_name":"dkishore:narrative_1711318571074",
             "member_modelsets": ["175104/153/1", "175104/154/1"],
             "media": ["175104/93/1"],
             "analysis_type": "Inter",

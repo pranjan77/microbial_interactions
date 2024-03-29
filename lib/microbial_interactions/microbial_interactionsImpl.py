@@ -64,11 +64,7 @@ class microbial_interactions:
             else:
                 raise
 
-        #END_CONSTRUCTOR
-        pass
-
-    @staticmethod
-    def create_html_report(output_dir, workspace_name):
+    def create_html_report(self, output_dir, workspace_name):
         callback_url = os.environ['SDK_CALLBACK_URL']
         report_info = KBaseReport(callback_url).create_extended_report({
             'direct_html_link_index': 0,
@@ -79,13 +75,18 @@ class microbial_interactions:
                 'label': 'index.html',
                 'description': 'HTML report for CommScores'
             }],
-            'report_object_name': 'smetana_report_' + str(uuid.uuid4()),
+            'report_object_name': 'commscores_report_' + str(uuid.uuid4()),
             'workspace_name': workspace_name
         })
         return {
             'report_name': report_info['name'],
             'report_ref': report_info['ref']
         }
+
+
+
+        #END_CONSTRUCTOR
+        pass
 
     def run_microbial_interactions(self, ctx, params):
         """
@@ -95,6 +96,7 @@ class microbial_interactions:
            "report_name" of String, parameter "report_ref" of String
         """
         # ctx is the context object
+        #BEGIN run_microbial_interactions
         token = ctx['token']
         kbase_api = cobrakbase.KBaseAPI(token)
         # package the output report
@@ -102,6 +104,8 @@ class microbial_interactions:
         print(result_dir)
         self._mkdir_p(result_dir)
         index_html_path = os.path.join(result_dir, "index.html")
+
+        msdb_path = "/msdb"
 
         # process the App parameters for CommScores API arguments
         ## models
@@ -121,23 +125,31 @@ class microbial_interactions:
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        if params["inter_model_assessment"] == "intra" and len(models_lists) > 1:
+        if params["analysis_type"] == "Intra" and len(models_lists) > 1:
             dfs, allmets = [], []
             for model_list in models_lists:
                 df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,
                                                         cip_score=params["cip_score"], costless=params["costless"],
-                                                        anme_comm=params["skip_questionable_models"])
+                                                        skip_bad_media=True)
+                df.replace('', 0.0, inplace=True)
                 dfs.append(df)  ;  allmets.append(mets)
             combined_df = concat(dfs, axis=0).reset_index(drop=True)
-            reportHTML = CommScores.html_report(combined_df, mets, index_html_path)
+            reportHTML = CommScores.html_report(combined_df, mets, index_html_path, msdb_path=msdb_path)
         else:
             df, mets = CommScores.report_generation(models_lists, kbase_obj=kbase_api, environments=media,
                                                     cip_score=params["cip_score"], costless=params["costless"],
-                                                    anme_comm=params["skip_questionable_models"])
-            reportHTML = CommScores.html_report(df, mets, index_html_path)
-        output = microbial_interactions.create_html_report(result_dir, params['workspace_name'])
+                                                    skip_bad_media=True)
+
+            df.replace('', 0.0, inplace=True)
+            reportHTML = CommScores.html_report(df, mets, index_html_path, msdb_path=msdb_path)
+        output = self.create_html_report(result_dir, params['workspace_name'])
         print(output)
-        # NOTE: At some point might do deeper type checking...
+        #END run_microbial_interactions
+        # At some point might do deeper type checking...
+        if not isinstance(output, dict):
+            raise ValueError('Method run_microbial_interactions return value ' +
+                             'output is not type dict as required.')
+        # return the results
         return [output]
 
     def status(self, ctx):

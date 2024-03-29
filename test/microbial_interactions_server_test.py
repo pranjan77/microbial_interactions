@@ -84,6 +84,16 @@ class microbial_interactionsTest(unittest.TestCase):
             "skip_questionable_models": 1
     }
 
+        params3 = {
+            "workspace_name":"dkishore:narrative_1711318571074",
+            "member_modelsets": ["175104/153/1", "175104/154/1"],
+            "media": ["175104/93/1"],
+            "analysis_type": "Inter",
+            "costless": 1,
+            "cip_score": 1,
+            "skip_questionable_models": 1
+    }
+
 
 
         params = params3

@@ -82,10 +82,10 @@ description : |
     
         <h3>Novel scores</h3>
     
-        <h4>Functional Complementarity (FC)</h4>    
+        <h4>Functional Similarity (FS)</h4>    
         <p>
-            The FC score is calculated as the Jiccard Index of ontologies <i>O</i> from either RAST or another annotation software available on KBase <sup><a href="#kbase">[2]</a></sup>
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/FC.png?raw=true">
+            The FS score is calculated as the Jiccard Index of ontologies <i>O</i> from either RAST or another annotation software available on KBase <sup><a href="#kbase">[2]</a></sup>
+                <img src="https://github.com/amarsh26/microbial_interactions/blob/main/images/FS.png?raw=true">
             This score captures the potential for niche overlap and therefore negative interactions. The broad assessment of the entire genome further captures secondary metabolic interactions as well as the primary metabolism that is embodied in genome-scale metabolic models. 
         </p>
     

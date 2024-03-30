@@ -69,7 +69,7 @@ parameters :
 
 
 description : |
-    <div class="app-description">
+     <div class="app-description">
         <h2>Background</h2>
         <p>
             Microbial communities are characteristically complex and high-dimensional. The interactions between members in these systems are unfortunately intractable for experimental methods, and are insufficiently captured by computational simulations, due to their combinatorial complexity. Metrics that isolate and quantify biological dimensions of interaction (e.g. metabolic competition, functional complementarity, parasitic potential) are therefore attractive to simplify community complexity and elucidate which dimensions govern interactions between member groupings. Several scores have been proposed since 2008, which principally includes the <i><b>S</b>pecies <b>Met</b>abolic Interaction <b>Ana</b>lysis</i> (SMETANA) suite of scores <sup>[1]</sup>. The SMETANA scores, however, do not capture several biologically dimensions that are involved in interactions and are additionally not comprehensively wrapped into an open-source web Application.
@@ -82,31 +82,31 @@ description : |
     
         <h3>Novel scores</h3>
     
-        <h4>Functional Complementarity (FC)</h4>    
+        <h4>Functional Similarity (FS)</h4>    
         <p>
-            The FC score is calculated as the Jiccard Index of ontologies <i>O</i> from either RAST or another annotation software available on KBase <sup><a href="#kbase">[2]</a></sup>
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/FC.png?sanitize=true">
+            The FS score is calculated as the Jiccard Index of ontologies <i>O</i> from either RAST or another annotation software available on KBase <sup><a href="#kbase">[2]</a></sup>
+                <img src="https://github.com/amarsh26/microbial_interactions/blob/main/images/FS.png?raw=true">
             This score captures the potential for niche overlap and therefore negative interactions. The broad assessment of the entire genome further captures secondary metabolic interactions as well as the primary metabolism that is embodied in genome-scale metabolic models. 
         </p>
     
         <h4>Growth Yield Difference (GYD)</h4>    
         <p>
             The GYD score evaluates the disparity in growth rate between the isolated members
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/GYD.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/GYD.png?raw=true">
             by normalizing the difference in the member's growth rates by the growth rate of the slower growing member. A relatively large disparity in the isolate growth rates may foreshadow a negative interaction when the members are combined, where one member rapidly begins dominating the environment and media consumption which leaves the other member potentially starved and possibly launching antibiotic warfare in desparation to survive.
         </p>
     
         <h4>Costless Interaction Potential (CIP)</h4>    
         <p>
             The CIP score quantifies the union of costless excreta <i>CE</i> (compounds that are excreted at maximal growth and therefore have no fitness cost associated with their excretion) in the isolated members
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/CIP.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/CIP.png?raw=true">
             which may contextualize syntrophic exchanges in their likelihood for exchange based on the fitness expense of their excretion. Our curation of the MIP score can be further contextualized with costless excreta via the intersection of exchanged compounds in the MIP score and the CIP for the same member pair. 
         </p>
     
         <h4>Biological Interaction Potential (BIT)</h4>    
         <p>
             The BIT score categorizes the member interaction into one of the classical descriptions -- competitive, amensalism, neutral, parasitism, commensalism, and mutualism -- based on relative growth of the members as isolates <i>G<sub>1</sub></i> versus in the community environment <i>G<sub>1,comm</sub></i>
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/BIT.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/BIT.png?raw=true">
             which provides a tangible biological description of the member interaction based on growth through the primary metabolism.
         </p>
     
@@ -115,28 +115,28 @@ description : |
         <h4>MRO</h4>
         <p>
             The <i><b>M</b>etabolic <b>R</b>esource <b>O</b>verlap</i> (MRO) score is in the SMETANA suite and several earlier published scores, albeit with slight algorithmic variations. The MRO quantifies the fraction of a member's nutritional requirements, in a given media or the complete media by default, that overlap with the other member's nutritional requirements 
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MRO.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MRO.png?raw=true">
             and is importantly directional (by replacing the denominator member), which can capture directional dependencies of interactions (e.g. lawn versus spot). The minimal media <i>M</i> of each member is determined by minimizing the total exchange flux.
         </p>
     
         <h4>MIP</h4>
         <p>
             The <i><b>M</b>etabolic <b>I</b>nteraction <b>P</b>otential</i> (MIP) score is also in the SMETANA and earlier suites. This score quantifies syntrophic exchanges between the members. Our curation computes the MIP as the difference in exchanged compounds versus transported compounds in the compartmentalized community model
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MIP.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/MIP.png?raw=true">
             where compounds that the members are transporting but the community is not exchanging with the media must be sourced from syntrophy. The MIP compounds that are costlessly excreted can also be quantified as a subscore of the MIP, and may better represent the compounds that are favorably exchanged in the community.
         </p>
     
         <h4>PC</h4>
         <p>
             The <i><b>P</b>otential <b>C</b>ooperation</i> (PC) score quantifies the net effect of co-growth relative to isolate growth, and in our curation is determined as the ratio of community growth to the sum of isolated member growths
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/PC.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/PC.png?raw=true">
             and is therefore essentially a continuous quantitative representation of the discrete qualitative BIT score.
         </p>
     
         <h4>BSS</h4>
         <p>
             The <i><b>B</b>iosynthetic <b>S</b>upport <b>S</b>core</i> (BSS) score quantifies the capacity of a member to parasitize another member by topologically evaluating the proportion of a member's nutritional requirements that are in the other member's cytoplasmic metabolites
-                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/BSS.png?sanitize=true">
+                <img src="https://github.com/freiburgermsu/microbial_interactions/blob/main/ui/narrative/methods/run_microbial_interactions/BSS.png?raw=true">
             This score therefore quantifies the capacity or incentive for negative interaction.
         </p>
     

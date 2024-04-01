@@ -39,7 +39,7 @@
             "optional": false,
             "advanced": false,
             "allow_multiple": false,
-            "default_values": [ "Inter" ], 
+            "default_values": [ "Intra" ], 
             "field_type": "dropdown",
             "dropdown_options": {
                 "options": [

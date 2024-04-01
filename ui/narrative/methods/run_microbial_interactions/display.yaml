@@ -69,7 +69,7 @@ parameters :
 
 
 description : |
-     <div class="app-description">
+
         <h2>Background</h2>
         <p>
             Microbial communities are characteristically complex and high-dimensional. The interactions between members in these systems are unfortunately intractable for experimental methods, and are insufficiently captured by computational simulations, due to their combinatorial complexity. Metrics that isolate and quantify biological dimensions of interaction (e.g. metabolic competition, functional complementarity, parasitic potential) are therefore attractive to simplify community complexity and elucidate which dimensions govern interactions between member groupings. Several scores have been proposed since 2008, which principally includes the <i><b>S</b>pecies <b>Met</b>abolic Interaction <b>Ana</b>lysis</i> (SMETANA) suite of scores <sup>[1]</sup>. The SMETANA scores, however, do not capture several biologically dimensions that are involved in interactions and are additionally not comprehensively wrapped into an open-source web Application.
@@ -140,10 +140,6 @@ description : |
             This score therefore quantifies the capacity or incentive for negative interaction.
         </p>
     
-        <!-- <h4>MSI</h4>
-        <p>
-            The <i><b>M</b>etabolic <b>S</b>upport <b>I</b>ndex</i> is the newest published score that we curated, and uniquely captures the ability of a member to activate the metabolism of another member based on a comparison of the topology of the metabolic networks of each model.
-        </p> -->
     
         <h3>Calculate Metabolic Interaction Scores Application</h3>
         <p>
@@ -155,8 +151,6 @@ description : |
             <li>improving the format of model outputs to foster user interpretation</li>
             <li>expanding the Application UI to accept more parameters that are available in the API</li>
         </ol>
-    </div>
-    
 
 publication :
     -

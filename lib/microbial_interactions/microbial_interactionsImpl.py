@@ -111,7 +111,6 @@ class microbial_interactions:
         ## models
 
         ws = Workspace(self.ws_url)
-
         modelset_refs = params["member_modelsets"]
         model_lists_ids = list ()
         for ref in modelset_refs:
@@ -119,13 +118,14 @@ class microbial_interactions:
             model_lists_ids.append(modellist)
 
         models_lists = [[kbase_api.get_from_ws(model) for model in model_list] for model_list in model_lists_ids]
-        if len(models_lists) == 1:  models_lists = models_lists[0]
+        #if len(models_lists) == 1:  models_lists = models_lists[0]
         ## media
         media = [kbase_api.get_from_ws(medium) for medium in params['media']]
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        if params["analysis_type"] == "Intra" and len(models_lists) > 1:
+        #if params["analysis_type"] == "Intra" and len(models_lists) > 1:
+        if params["analysis_type"] == "Intra":
             dfs, allmets = [], []
             for model_list in models_lists:
                 df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,

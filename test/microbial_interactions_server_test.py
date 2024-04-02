@@ -84,8 +84,40 @@ class microbial_interactionsTest(unittest.TestCase):
             "skip_questionable_models": 1
     }
 
+        params4 = {
+            "workspace_name":"dkishore:narrative_1711318571074",
+            "member_modelsets": ["175104/153/1", "175104/154/1"],
+            "media": ["175104/93/1"],
+            "analysis_type": "Inter",
+            "costless": 1,
+            "cip_score": 1,
+            "skip_questionable_models": 1
+    }
+
+        params5 = {
+            "workspace_name":"dkishore:narrative_1711318571074",
+            "member_modelsets": ["175104/153/1"],
+            "media": ["175104/93/1"],
+            "analysis_type": "Intra",
+            "costless": 1,
+            "cip_score": 1,
+            "skip_questionable_models": 1
+    }
+
+        params6 = {
+            "workspace_name":"pranjan77:narrative_1711484513415",
+            "member_modelsets": ["175377/77/1"],
+            "media": ["175377/47/1"],
+            "analysis_type": "Intra",
+            "costless": 1,
+            "cip_score": 1,
+            "skip_questionable_models": 1
+    }
 
 
-        params = params3
+
+
+
+        params = params5
 
         ret = self.serviceImpl.run_microbial_interactions(self.ctx, params)

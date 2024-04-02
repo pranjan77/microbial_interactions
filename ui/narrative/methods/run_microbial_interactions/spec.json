@@ -25,7 +25,7 @@
 
         {
             "id": "media",
-            "optional": true,
+            "optional": false,
             "advanced": false,
             "allow_multiple": true,
             "default_values": [ "" ],
@@ -39,7 +39,7 @@
             "optional": false,
             "advanced": false,
             "allow_multiple": false,
-            "default_values": [ "Inter" ], 
+            "default_values": [ "Intra" ], 
             "field_type": "dropdown",
             "dropdown_options": {
                 "options": [
@@ -105,10 +105,13 @@
                     "target_property": "workspace_id"
                 },{
                     "input_parameter": "member_modelsets",
-                    "target_property": "member_modelsets"
+                    "target_property": "member_modelsets",
+                    "target_type_transform":"ref"
+  
                 },{
                     "input_parameter": "media",
-                    "target_property": "media"
+                    "target_property": "media",
+                    "target_type_transform":"ref"
                 },
                 {
                     "input_parameter": "analysis_type",

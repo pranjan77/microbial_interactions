@@ -121,7 +121,7 @@ class microbial_interactions:
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        if params["inter_model_assessment"] == "intra" and len(models_lists) > 1:
+        if len(models_lists) == 1 or params["inter_model_assessment"] == "intra":
             dfs, allmets = [], []
             for model_list in models_lists:
                 df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,

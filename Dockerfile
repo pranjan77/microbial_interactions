@@ -30,7 +30,7 @@ RUN mkdir -p /msdb/Biochemistry/Aliases && wget https://raw.githubusercontent.co
 RUN mkdir -p /msdb/Biochemistry/Aliases && wget https://raw.githubusercontent.com/ModelSEED/ModelSEEDDatabase/master/Biochemistry/Aliases/Unique_ModelSEED_Reaction_ECs.txt -P /msdb/Biochemistry/Aliases
 
 
-Run touch new4
+Run touch new5
 RUN pip install git+https://github.com/freiburgermsu/commscores.git@dev
 RUN pip install pandas
 

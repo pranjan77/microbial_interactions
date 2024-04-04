@@ -26,7 +26,7 @@ suggestions:
 parameters :
     member_modelsets :
         ui-name : |
-            Member Models
+            Member Models / Modelsets
         short-hint : |
            Metabolic Models of individual Genomes 
         long-hint  : |

@@ -4,7 +4,7 @@ from installed_clients.DataFileUtilClient import DataFileUtil
 from installed_clients.KBaseReportClient import KBaseReport
 from installed_clients.WorkspaceClient import Workspace
 from installed_clients.DataFileUtilClient import DataFileUtil
-
+import json
 from commscores import CommScores
 from pandas import concat
 import cobrakbase
@@ -113,9 +113,24 @@ class microbial_interactions:
         ws = Workspace(self.ws_url)
         modelset_refs = params["member_modelsets"]
         model_lists_ids = list ()
+        individual_models = list()
+        individual_model = False
         for ref in modelset_refs:
-            modellist = list(ws.get_objects2({'objects': [{"ref": ref}]})['data'][0]['data']['instances'].keys())
-            model_lists_ids.append(modellist)
+            # Handle individual models as input as well
+            ref_type = ws.get_object_info3({'objects': [{'ref': ref}]})['infos'][0][2]
+            if "KBaseFBA.FBAModel" in ref_type:
+                individual_models.append(ref) 
+                individual_model = True
+            else:  
+                modellist = list(ws.get_objects2({'objects': [{"ref": ref}]})['data'][0]['data']['instances'].keys())
+                model_lists_ids.append(modellist)
+
+        if individual_model == True:
+            if len(model_lists_ids) > 0:
+                model_lists_ids[0].extend(individual_models)
+            else:
+               model_lists_ids.append(individual_models)
+
 
         models_lists = [[kbase_api.get_from_ws(model) for model in model_list] for model_list in model_lists_ids]
         #if len(models_lists) == 1:  models_lists = models_lists[0]
@@ -124,7 +139,7 @@ class microbial_interactions:
         print("#############Models########\n", models_lists, "##############Media#########\n", media)
 
         # run the CommScores API
-        if len(models_lists) == 1 or params["inter_model_assessment"] == "intra":
+        if len(models_lists) == 1 or params["analysis_type"] == "intra" or individual_model==True:
             dfs, allmets = [], []
             for model_list in models_lists:
                 df, mets = CommScores.report_generation(model_list, kbase_obj=kbase_api, environments=media,

@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-import os
-import time
-import unittest
-from configparser import ConfigParser
-
 from microbial_interactions.microbial_interactionsImpl import microbial_interactions
 from microbial_interactions.microbial_interactionsServer import MethodContext
 from microbial_interactions.authclient import KBaseAuth as _KBaseAuth
-
 from installed_clients.WorkspaceClient import Workspace
+from configparser import ConfigParser
+import unittest
+import time
+import os
+
 
 
 class microbial_interactionsTest(unittest.TestCase):

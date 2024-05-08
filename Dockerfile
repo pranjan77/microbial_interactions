@@ -21,11 +21,21 @@ RUN mkdir -p /msdb/Biochemistry/Aliases && wget https://raw.githubusercontent.co
 RUN mkdir -p /msdb/Biochemistry/Aliases && wget https://raw.githubusercontent.com/ModelSEED/ModelSEEDDatabase/master/Biochemistry/Aliases/Unique_ModelSEED_Reaction_ECs.txt -P /msdb/Biochemistry/Aliases
 
 
-Run touch new5
-RUN pip install git+https://github.com/freiburgermsu/commscores.git@dev
+
+RUN pip install git+https://github.com/freiburgermsu/commscores.git@e921a529d2144560882d6d2c9028401f4254b899
+RUN pip install pandas
 
 RUN cp -r /opt/conda3/lib/python3.8/site-packages/modelseedpy/community /opt/conda3/lib/python3.8/site-packages/commscores/
 RUN rm -rf /opt/conda3/lib/python3.8/site-packages/modelseedpy_freiburgermsu && cp -R  /opt/conda3/lib/python3.8/site-packages/modelseedpy/ /opt/conda3/lib/python3.8/site-packages/modelseedpy_freiburgermsu
+
+RUN touch new
+RUN pip uninstall -y cobrakbase
+RUN pip install git+https://github.com/cshenry/cobrakbase.git@525409070d11fc1efd8fe5daf9069fd519d563c2
+
+
+
+
+
 
 COPY ./ /kb/module
 RUN mkdir -p /kb/module/work

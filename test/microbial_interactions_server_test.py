@@ -126,7 +126,7 @@ class microbial_interactionsTest(unittest.TestCase):
 
         params7 = {
             "workspace_name":"pranjan77:narrative_1711484513415",
-            "member_modelsets": ["175377/87/1", "175377/59/1", "175377/57/1"],
+            "member_modelsets": ["179194/527/1", "179194/525/1"],
             "media": ["175377/47/1"],
             "analysis_type": "Intra",
             "costless": 1,

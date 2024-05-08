@@ -1,7 +1,7 @@
 FROM kbase/sdkpython:3.8.0
 MAINTAINER KBase Developer
-RUN apt-get update -y
-RUN apt-get -y install  vim wget
+RUN apt-get update && apt-get install -y vim wget
+
 RUN pip install --upgrade pip
 RUN pip install numpy==1.24.4 h5py==3.10.0 pandas==2.0.3
 
